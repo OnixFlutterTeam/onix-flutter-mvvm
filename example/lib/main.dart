@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onix_flutter_mvvm/onix_futter_mvvm.dart';
+import 'package:onix_flutter_mvvm/onix_flutter_mvvm.dart';
 
 void main() {
   runApp(const MyApp());
