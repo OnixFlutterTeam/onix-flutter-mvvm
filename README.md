@@ -1,39 +1,73 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+This package contains base classes for MVVM implementation in Flutter. 
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Create MVVM model class:
 
-```dart
-const like = 'sample';
+```
+class MainModel {
+  MainModel({int counter = 0}) : _counter = counter;
+
+  final int _counter;
+
+  int get counter => _counter;
+
+  MainModel copyWith({
+    int? counter,
+  }) =>
+      MainModel(counter: counter ?? _counter);
+}
 ```
 
-## Additional information
+Create ViewModel class:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```
+class MainViewModel extends ViewModel<MainModel> {
+  MainViewModel() : super(MainModel());
+
+  void increment() {
+    final newValue = data.counter + 1;
+    setData(data.copyWith(counter: newValue));
+    notifyListeners();
+  }
+}
+```
+
+Specify your ViewModel in your widget state:
+
+```
+class _MyHomePageState extends 
+ViewModelWidget<MyHomePage, MainViewModel>
+```
+
+Create you ViewModel instance in overiden `createVm` function:
+
+```
+@override
+  MainViewModel createVm() => MainViewModel();
+```
+
+Handle errors in overriden `onError` function:
+
+```
+@override
+  void onError(failure) {
+    // TODO: process error
+  }
+```
+
+Use additional builder to handle ViewModel changes in your widget:
+
+```
+vmBuilder<MainViewModel>(builder: (context, vm) {
+              return Text(
+                '${vm.data.counter}',
+              );
+            }),
+```
+
+
+
