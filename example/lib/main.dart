@@ -60,7 +60,7 @@ class _MyHomePageState extends ViewModelWidget<MyHomePage, MainViewModel> {
   }
 
   @override
-  void onError(failure) {
+  void onError(Exception error) {
     // TODO: process error
   }
 
