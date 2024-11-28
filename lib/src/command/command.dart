@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/foundation.dart';
 import 'package:onix_flutter_core_models/onix_flutter_core_models.dart';
 import 'package:onix_flutter_mvvm/onix_flutter_mvvm.dart';
@@ -104,3 +105,4 @@ class Command3<T, A, B, C> extends Command<T> {
     await _execute(() => _action(argument1, argument2, argument3));
   }
 }
+*/

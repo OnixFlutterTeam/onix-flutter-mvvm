@@ -10,10 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  onix_flutter_core_models:
-    git:
-      url: https://github.com/OnixFlutterTeam/onix-flutter-core-models.git
-      ref: feat/exception_migration
 
 dev_dependencies:
   flutter_test:
