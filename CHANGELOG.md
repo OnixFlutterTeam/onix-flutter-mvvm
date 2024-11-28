@@ -1,6 +1,6 @@
-## 0.0.1
+## 0.0.2
 
-* Added commands.
+* Fixed dart version compatibility.
 
 ## 0.0.1
 
