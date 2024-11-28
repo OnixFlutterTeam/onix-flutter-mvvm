@@ -6,7 +6,7 @@ abstract class ViewModel<T> extends ChangeNotifier {
   }
 
   late T _data;
-  dynamic _error;
+  Exception? _error;
 
   bool _loading = false;
 
@@ -24,7 +24,7 @@ abstract class ViewModel<T> extends ChangeNotifier {
   }
 
   @protected
-  void setError(dynamic error) {
+  void setError(Exception error) {
     _error = error;
   }
 
@@ -37,6 +37,4 @@ abstract class ViewModel<T> extends ChangeNotifier {
   void setData(T data) {
     _data = data;
   }
-
-
 }

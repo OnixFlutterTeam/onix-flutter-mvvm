@@ -17,7 +17,7 @@ abstract class ViewModelWidget<T extends StatefulWidget, V extends ViewModel>
 
   V createVm();
 
-  void onError(dynamic failure);
+  void onError(Exception error);
 
   @override
   void initState() {

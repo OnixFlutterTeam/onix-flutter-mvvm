@@ -1,3 +1,7 @@
+## 0.0.3
+
+* ViewModel error set as [Exception].
+
 ## 0.0.2
 
 * Fixed dart version compatibility.
