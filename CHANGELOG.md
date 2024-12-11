@@ -1,5 +1,9 @@
 ## 0.0.3
 
+* Added stateless BaseViewModel.
+
+## 0.0.3
+
 * ViewModel error set as [Exception].
 
 ## 0.0.2

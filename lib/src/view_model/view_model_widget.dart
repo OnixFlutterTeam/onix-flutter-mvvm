@@ -1,13 +1,14 @@
 import 'package:flutter/widgets.dart';
+import 'package:onix_flutter_mvvm/src/view_model/base_view_model.dart';
 import 'package:onix_flutter_mvvm/src/view_model/view_model.dart';
 
 
-typedef ViewModelBuilder<V extends ViewModel> = Widget Function(
+typedef ViewModelBuilder<V extends BaseViewModel> = Widget Function(
   BuildContext context,
   V vm,
 );
 
-abstract class ViewModelWidget<T extends StatefulWidget, V extends ViewModel>
+abstract class ViewModelWidget<T extends StatefulWidget, V extends BaseViewModel>
     extends State<T> {
   late V viewModel;
 
