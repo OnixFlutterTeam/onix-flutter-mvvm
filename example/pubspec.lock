@@ -131,13 +131,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.15.0"
+  onix_flutter_core_models:
+    dependency: transitive
+    description:
+      name: onix_flutter_core_models
+      sha256: "625448f2c48597b08e506062239051c8427aa1c52aa32f36b484501e59e15396"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3-beta.1"
   onix_flutter_mvvm:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.4"
+    version: "0.0.5"
   path:
     dependency: transitive
     description:

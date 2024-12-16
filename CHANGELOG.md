@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Added ViewModel Command
+
 ## 0.0.4
 
 * Added stateless BaseViewModel.

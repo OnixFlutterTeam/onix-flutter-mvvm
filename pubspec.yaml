@@ -1,6 +1,6 @@
 name: onix_flutter_mvvm
 description: "Base MVVM Flutter implementation."
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/OnixFlutterTeam/onix-flutter-mvvm
 
 environment:
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  onix_flutter_core_models: ^0.0.3-beta.1
 
 dev_dependencies:
   flutter_test:
