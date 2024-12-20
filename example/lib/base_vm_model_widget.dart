@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:onix_flutter_mvvm/onix_flutter_mvvm.dart';
 
-class StatefulModelWidget extends StatefulWidget {
-  const StatefulModelWidget({super.key});
+class BaseVMWidget extends StatefulWidget {
+  const BaseVMWidget({super.key});
 
   @override
-  State<StatefulModelWidget> createState() => _StatefulModelWidgetState();
+  State<BaseVMWidget> createState() => _BaseVMWidgetState();
 }
 
-class _StatefulModelWidgetState
-    extends ViewModelWidget<StatefulModelWidget, StatefulMainViewModel> {
+class _BaseVMWidgetState
+    extends ViewModelWidget<BaseVMWidget, BaseMainViewModel> {
   @override
-  StatefulMainViewModel createVm() => StatefulMainViewModel();
+  BaseMainViewModel createVm() => BaseMainViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,14 @@ class _StatefulModelWidgetState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('StatefulModel', style: TextStyle(fontSize: 24)),
+            const Text('Basic ViewModel', style: TextStyle(fontSize: 24)),
             const SizedBox(height: 16),
             const Text(
               'You have pushed the button this many times:',
             ),
-            vmBuilder<StatefulMainViewModel>(builder: (context, vm) {
+            vmBuilder<BaseMainViewModel>(builder: (context, vm) {
               return Text(
-                '${vm.data.counter}',
+                '${vm.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
               );
             }),
@@ -48,21 +48,13 @@ class _StatefulModelWidgetState
   }
 }
 
-class StatefulMainModel {
-  final int counter;
-
-  StatefulMainModel({this.counter = 0});
-
-  StatefulMainModel copyWith({int? counter}) =>
-      StatefulMainModel(counter: counter ?? this.counter);
-}
-
-class StatefulMainViewModel extends ViewModelStateful<StatefulMainModel> {
-  StatefulMainViewModel() : super(StatefulMainModel());
+class BaseMainViewModel extends ViewModel {
+  int counter = 0;
 
   void increment() {
-    final newValue = data.counter + 1;
-    setData(data.copyWith(counter: newValue));
+    counter++;
     notifyListeners();
   }
 }
+
+

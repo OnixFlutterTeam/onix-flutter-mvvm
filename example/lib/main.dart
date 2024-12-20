@@ -1,5 +1,6 @@
-import 'package:example/base_model_widget.dart';
-import 'package:example/stateful_model_widget.dart';
+import 'package:example/base_vm_model_widget.dart';
+import 'package:example/command_vm_widget.dart';
+import 'package:example/stateful_vm_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -37,9 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(child: BaseModelWidget()),
+            Expanded(child: BaseVMWidget()),
             Divider(),
-            Expanded(child: StatefulModelWidget()),
+            Expanded(child: StatefulVMWidget()),
+            Divider(),
+            Expanded(child: CommandVMWidget()),
           ],
         ),
       ),

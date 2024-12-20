@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:onix_flutter_mvvm/src/view_model/base_view_model.dart';
+import 'package:onix_flutter_mvvm/src/view_model/view_model.dart';
 
-abstract class ViewModelStateful<T> extends BaseViewModel {
+abstract class ViewModelStateful<T> extends ViewModel {
   ViewModelStateful(T defaultModel) {
     _data = defaultModel;
   }

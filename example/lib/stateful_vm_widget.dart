@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:onix_flutter_mvvm/onix_flutter_mvvm.dart';
 
-class BaseModelWidget extends StatefulWidget {
-  const BaseModelWidget({super.key});
+class StatefulVMWidget extends StatefulWidget {
+  const StatefulVMWidget({super.key});
 
   @override
-  State<BaseModelWidget> createState() => _BaseModelWidgetState();
+  State<StatefulVMWidget> createState() => _StatefulVMWidgetState();
 }
 
-class _BaseModelWidgetState
-    extends ViewModelWidget<BaseModelWidget, BaseMainViewModel> {
+class _StatefulVMWidgetState
+    extends ViewModelWidget<StatefulVMWidget, StatefulMainViewModel> {
   @override
-  BaseMainViewModel createVm() => BaseMainViewModel();
+  StatefulMainViewModel createVm() => StatefulMainViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,14 @@ class _BaseModelWidgetState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('BaseModel', style: TextStyle(fontSize: 24)),
+            const Text('Stateful ViewModel', style: TextStyle(fontSize: 24)),
             const SizedBox(height: 16),
             const Text(
               'You have pushed the button this many times:',
             ),
-            vmBuilder<BaseMainViewModel>(builder: (context, vm) {
+            vmBuilder<StatefulMainViewModel>(builder: (context, vm) {
               return Text(
-                '${vm.counter}',
+                '${vm.data.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
               );
             }),
@@ -48,19 +48,21 @@ class _BaseModelWidgetState
   }
 }
 
-class BaseMainModel {
-  int counter;
+class StatefulMainModel {
+  final int counter;
 
-  BaseMainModel({this.counter = 0});
+  StatefulMainModel({this.counter = 0});
+
+  StatefulMainModel copyWith({int? counter}) =>
+      StatefulMainModel(counter: counter ?? this.counter);
 }
 
-class BaseMainViewModel extends ViewModel {
-  final BaseMainModel model = BaseMainModel();
-
-  int get counter => model.counter;
+class StatefulMainViewModel extends ViewModelStateful<StatefulMainModel> {
+  StatefulMainViewModel() : super(StatefulMainModel());
 
   void increment() {
-    model.counter++;
+    final newValue = data.counter + 1;
+    setData(data.copyWith(counter: newValue));
     notifyListeners();
   }
 }

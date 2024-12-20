@@ -1,13 +1,19 @@
 import 'package:flutter/widgets.dart';
-import 'package:onix_flutter_mvvm/src/view_model/base_view_model.dart';
+import 'package:onix_flutter_mvvm/src/command/command.dart';
+import 'package:onix_flutter_mvvm/src/view_model/view_model.dart';
 
-typedef ViewModelBuilder<V extends BaseViewModel> = Widget Function(
+typedef ViewModelBuilder<V extends ViewModel> = Widget Function(
   BuildContext context,
   V vm,
 );
 
-abstract class ViewModelWidget<T extends StatefulWidget,
-    V extends BaseViewModel> extends State<T> {
+typedef CommandBuilder<T> = Widget Function(
+  BuildContext context,
+  Command<T> vm,
+);
+
+abstract class ViewModelWidget<T extends StatefulWidget, V extends ViewModel>
+    extends State<T> {
   late V viewModel;
 
   ViewModelWidget() {
@@ -49,13 +55,25 @@ abstract class ViewModelWidget<T extends StatefulWidget,
 }
 
 extension VmBuilderExtension on ViewModelWidget {
-  Widget vmBuilder<V extends BaseViewModel>({
+  Widget vmBuilder<V extends ViewModel>({
     required ViewModelBuilder<V> builder,
   }) {
     return ListenableBuilder(
       listenable: viewModel,
       builder: (BuildContext context, Widget? child) {
         return builder(context, viewModel as V);
+      },
+    );
+  }
+
+  Widget commandBuilder<T>({
+    required Command<T> command,
+    required CommandBuilder<T> builder,
+  }) {
+    return ListenableBuilder(
+      listenable: command,
+      builder: (BuildContext context, Widget? child) {
+        return builder(context, command);
       },
     );
   }
