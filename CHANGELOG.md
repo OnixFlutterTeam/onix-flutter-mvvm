@@ -1,3 +1,8 @@
+## 0.0.6
+
+* Improved docs
+* Minor fixes
+
 ## 0.0.5
 
 * Added ViewModel Command

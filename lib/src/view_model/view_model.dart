@@ -1,17 +1,30 @@
 import 'package:flutter/foundation.dart';
-import 'package:onix_flutter_mvvm/src/view_model/base_view_model.dart';
 
-abstract class ViewModel<T> extends BaseViewModel {
-  ViewModel(T defaultModel) {
-    _data = defaultModel;
+abstract class ViewModel extends ChangeNotifier {
+
+  Exception? _error;
+
+  bool _loading = false;
+
+  dynamic get error => _error;
+
+  bool get hasError => _error != null;
+
+  bool get loading => _loading;
+
+  void cleanInternalState() {
+    _error = null;
+    _loading = false;
   }
-
-  late T _data;
-
-  T get data => _data;
 
   @protected
-  void setData(T data) {
-    _data = data;
+  void setError(Exception error) {
+    _error = error;
   }
+
+  @protected
+  void setLoading(bool loading) {
+    _loading = loading;
+  }
+
 }
