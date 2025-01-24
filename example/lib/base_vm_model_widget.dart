@@ -1,4 +1,3 @@
-import 'package:example/action/test_action.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:onix_flutter_mvvm/onix_flutter_mvvm.dart';
