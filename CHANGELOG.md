@@ -1,3 +1,9 @@
+## 0.0.7
+
+* Added consumers
+* Added actions
+* Errors as stream
+
 ## 0.0.6
 
 * Improved docs
