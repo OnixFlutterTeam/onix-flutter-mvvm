@@ -1,3 +1,5 @@
+import 'package:example/action/test_action.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:onix_flutter_mvvm/onix_flutter_mvvm.dart';
 
@@ -44,7 +46,16 @@ class _BaseVMWidgetState
 
   @override
   void onError(Exception error) {
-    // TODO: process error
+    if (kDebugMode) {
+      print('Error: ${error.toString()}');
+    }
+    super.onError(error);
+  }
+
+  @override
+  void onAction(ViewModelAction action) {
+    showAboutDialog(context: context);
+    super.onAction(action);
   }
 }
 
@@ -56,5 +67,3 @@ class BaseMainViewModel extends ViewModel {
     notifyListeners();
   }
 }
-
-
