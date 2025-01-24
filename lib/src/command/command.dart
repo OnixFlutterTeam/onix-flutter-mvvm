@@ -1,7 +1,5 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:onix_flutter_core_models/onix_flutter_core_models.dart';
-
 
 typedef CommandAction0<T> = Future<Result<T>> Function();
 typedef CommandAction1<T, A> = Future<Result<T>> Function(A);
@@ -9,7 +7,10 @@ typedef CommandAction2<T, A, B> = Future<Result<T>> Function(A, B);
 typedef CommandAction3<T, A, B, C> = Future<Result<T>> Function(A, B, C);
 
 abstract class Command<T> extends ChangeNotifier {
-  Command();
+  Command({ValueChanged<Exception>? errorHandler})
+      : _errorHandler = errorHandler;
+
+  final ValueChanged<Exception>? _errorHandler;
 
   bool _running = false;
 
@@ -46,7 +47,11 @@ abstract class Command<T> extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _result = await action();
+      final result = await action();
+      if (_errorHandler != null && result.isError) {
+        _errorHandler(result.asError.error);
+      }
+      _result = result;
     } finally {
       _running = false;
       notifyListeners();
@@ -57,7 +62,7 @@ abstract class Command<T> extends ChangeNotifier {
 /// [Command] without arguments.
 /// Takes a [CommandAction0] as action.
 class Command0<T> extends Command<T> {
-  Command0(this._action);
+  Command0(this._action, {super.errorHandler});
 
   final CommandAction0<T> _action;
 
@@ -70,7 +75,7 @@ class Command0<T> extends Command<T> {
 /// [Command] with one argument.
 /// Takes a [CommandAction1] as action.
 class Command1<T, A> extends Command<T> {
-  Command1(this._action);
+  Command1(this._action, {super.errorHandler});
 
   final CommandAction1<T, A> _action;
 
@@ -83,7 +88,7 @@ class Command1<T, A> extends Command<T> {
 /// [Command] with two arguments.
 /// Takes a [CommandAction2] as action.
 class Command2<T, A, B> extends Command<T> {
-  Command2(this._action);
+  Command2(this._action, {super.errorHandler});
 
   final CommandAction2<T, A, B> _action;
 
@@ -96,7 +101,7 @@ class Command2<T, A, B> extends Command<T> {
 /// [Command] with three arguments.
 /// Takes a [CommandAction3] as action.
 class Command3<T, A, B, C> extends Command<T> {
-  Command3(this._action);
+  Command3(this._action, {super.errorHandler});
 
   final CommandAction3<T, A, B, C> _action;
 
@@ -105,4 +110,3 @@ class Command3<T, A, B, C> extends Command<T> {
     await _execute(() => _action(argument1, argument2, argument3));
   }
 }
-

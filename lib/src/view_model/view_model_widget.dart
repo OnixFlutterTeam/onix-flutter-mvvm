@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:onix_flutter_mvvm/src/action/action.dart';
 import 'package:onix_flutter_mvvm/src/command/command.dart';
+import 'package:onix_flutter_mvvm/src/mixin/state_builder_mixin.dart';
+import 'package:onix_flutter_mvvm/src/mixin/state_consumer_mixin.dart';
 import 'package:onix_flutter_mvvm/src/view_model/view_model.dart';
 
 typedef ViewModelBuilder<V extends ViewModel> = Widget Function(
@@ -26,7 +28,7 @@ typedef CommandConsumer<T> = void Function(
 );
 
 abstract class ViewModelWidget<T extends StatefulWidget, V extends ViewModel>
-    extends State<T> {
+    extends State<T> with StateBuilderMixin, StateConsumerMixin {
   late V viewModel;
 
   late StreamSubscription<ViewModelAction> _actionSubscription;
@@ -76,4 +78,3 @@ abstract class ViewModelWidget<T extends StatefulWidget, V extends ViewModel>
     onChanged(viewModel);
   }
 }
-

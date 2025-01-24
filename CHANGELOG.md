@@ -1,3 +1,8 @@
+## 0.1.0
+
+* Fixed mixins and extensions
+* Added command error handler
+
 ## 0.0.9
 
 * Fixed cast issue

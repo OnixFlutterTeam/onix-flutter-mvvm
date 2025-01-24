@@ -40,6 +40,7 @@ abstract class ViewModel extends ChangeNotifier {
     }
   }
 
+  @protected
   void setAction(ViewModelAction action) {
     if (!_actionController.isClosed) _actionController.add(action);
   }

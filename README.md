@@ -46,7 +46,7 @@ Handle errors in overriden `onError` function:
 Use `vmBuilder` builder to handle ViewModel changes in your widget:
 
 ```
-vmBuilder<MainViewModel>(builder: (context, vm) {
+viewModelBuilder<MainViewModel>(builder: (context, vm) {
               return Text(
                 '${vm.data.counter}',
               );
