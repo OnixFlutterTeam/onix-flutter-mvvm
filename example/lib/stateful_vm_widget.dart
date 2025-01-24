@@ -25,7 +25,7 @@ class _StatefulVMWidgetState
             const Text(
               'You have pushed the button this many times:',
             ),
-            vmBuilder<StatefulMainViewModel>(builder: (context, vm) {
+            viewModelBuilder<StatefulMainViewModel>(builder: (context, vm) {
               return Text(
                 '${vm.data.counter}',
                 style: Theme.of(context).textTheme.headlineMedium,
