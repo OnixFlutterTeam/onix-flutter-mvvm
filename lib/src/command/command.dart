@@ -7,8 +7,9 @@ typedef CommandAction2<T, A, B> = Future<Result<T>> Function(A, B);
 typedef CommandAction3<T, A, B, C> = Future<Result<T>> Function(A, B, C);
 
 abstract class Command<T> extends ChangeNotifier {
-  Command({ValueChanged<Exception>? errorHandler})
-      : _errorHandler = errorHandler;
+  Command({
+    ValueChanged<Exception>? errorHandler,
+  }) : _errorHandler = errorHandler;
 
   final ValueChanged<Exception>? _errorHandler;
 
