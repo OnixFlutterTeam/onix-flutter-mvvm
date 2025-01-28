@@ -25,12 +25,15 @@ class _StatefulVMWidgetState
             const Text(
               'You have pushed the button this many times:',
             ),
-            viewModelBuilder<StatefulMainViewModel>(builder: (context, vm) {
-              return Text(
-                '${vm.data.counter}',
-                style: Theme.of(context).textTheme.headlineMedium,
-              );
-            }),
+            viewModelBuilder<StatefulMainViewModel>(
+              builder: (context, vm) {
+                return Text(
+                  '${vm.data.counter}',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              },
+            ),
+
           ],
         ),
       ),

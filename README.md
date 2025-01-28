@@ -2,7 +2,6 @@
 This package contains base classes for MVVM implementation in Flutter. 
 
 
-
 ## Usage
 
 ### View Model
@@ -20,6 +19,18 @@ class MainViewModel extends ViewModel {
 }
 ```
 
+Call `setError` in ViewModel when error happened:
+
+```
+setError(Exception());
+```
+
+Call `setAction` in ViewModel to trigger single time event (like show dialog, call navigation, etc.):
+
+```
+setAction(MyAction());
+```
+
 Specify your ViewModel in your widget state:
 
 ```
@@ -34,7 +45,7 @@ Create you ViewModel instance in overiden `createVm` function:
   MainViewModel createVm() => MainViewModel();
 ```
 
-Handle errors in overriden `onError` function:
+Use `onError` function to handle erorrs from ViewModel (when `setError` has been called):
 
 ```
 @override
@@ -43,7 +54,19 @@ Handle errors in overriden `onError` function:
   }
 ```
 
-Use `vmBuilder` builder to handle ViewModel changes in your widget:
+Use `onAction` function to handle actions from ViewModel (when `setAction` has been called):
+
+```
+ @override
+  void onAction(action) {
+    if(action == MyAction){
+    	context.goNamed('detailsScreen');
+    }
+    super.onAction(action);
+  }
+```
+
+Use `viewModelBuilder` builder to handle ViewModel changes in your widget:
 
 ```
 viewModelBuilder<MainViewModel>(builder: (context, vm) {
@@ -53,10 +76,30 @@ viewModelBuilder<MainViewModel>(builder: (context, vm) {
             }),
 ```
 
+Use `viewModelConsumer` builder to handle ViewModel changes in your widget:
+
+```
+viewModelConsumer<MainViewModel>(
+              consumer: (context, vm) {
+                //do what you need
+              },
+              child: MyWidget(),
+            )
+```
+
+Set `buildWhen` parameter if you need restrict rebuilds:
+
+``
+ buildWhen: (oldVm, newVm) {
+                return oldVm.value > newVm.value;
+              },
+``
 
 ### Stateful View Model
 
-Create MVVM model class:
+This options designed to use ViewModel but with all variables inside additional model class. All usage remains the same, except:
+
+Create model class:
 
 ```
 class MainModel {
@@ -69,10 +112,10 @@ class MainModel {
 }
 ```
 
-Create ViewModel class:
+Extend your ViewModel class from `ViewModelStateful<Model>`:
 
 ```
-class MainViewModel extends ViewModel<MainModel> {
+class MainViewModel extends ViewModelStateful<MainModel> {
   MainViewModel() : super(MainModel());
 
   void increment() {
@@ -83,37 +126,31 @@ class MainViewModel extends ViewModel<MainModel> {
 }
 ```
 
-Specify your ViewModel in your widget state:
+Specify your model type in ViewModelWidget in your widget state:
 
 ```
 class _MyHomePageState extends 
 ViewModelWidget<MyHomePage, MainViewModel>
 ```
 
-Create you ViewModel instance in overiden `createVm` function:
+### Usage out of ViewModel based Widget
+
+Add corresponding mixin to your widget:
+
+* `StateCommandMixin` - State mixin to get access to Command builder and consumer (`commandBuilder` and `commandConsumer`);
+* `StateViewModelMixin` - State mixin to get access to ViewModel builder and consumer (`vmBuilder` and `vmConsumer`);
+* `WidgetCommandMixin` - Widget mixin to get access to Command builder and consumer (`commandBuilder` and `commandConsumer`);
+* `WidgetViewModelMixin` - Widget mixin to get access to ViewModel builder and consumer (`vmBuilder` and `vmConsumer`);
+
+Usage example:
 
 ```
-@override
-  MainViewModel createVm() => MainViewModel();
-```
-
-Handle errors in overriden `onError` function:
-
-```
-@override
-  void onError(failure) {
-    // TODO: process error
-  }
-```
-
-Use `vmBuilder` builder to handle ViewModel changes in your widget:
-
-```
-vmBuilder<MainViewModel>(builder: (context, vm) {
-              return Text(
-                '${vm.data.counter}',
-              );
-            }),
+vmBuilder<MyViewModel>(
+      builder: (context, vm) {
+        return MyWidget();
+      },
+      viewModel: myViewModel,
+    )
 ```
 
 ### Commands
@@ -157,6 +194,13 @@ commandBuilder<int>(
                 }),
 ```
 
+Execute Command where you need:
+
+```
+void _onPressed(){
+	 viewModel.increment.execute();
+}
+```
 
 Found a bug or have a suggestion? Report it [here](https://github.com/OnixFlutterTeam/onix-flutter-mvvm/issues).
 

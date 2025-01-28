@@ -1,9 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:onix_flutter_mvvm/src/command/command.dart';
 import 'package:onix_flutter_mvvm/src/view_model/view_model.dart';
 import 'package:onix_flutter_mvvm/src/view_model/view_model_widget.dart';
 
-mixin WidgetBuilderMixin on Widget {
+mixin WidgetViewModelMixin on Widget {
   Widget vmBuilder<V extends ViewModel>({
     required ViewModelBuilder<V> builder,
     required ViewModel viewModel,
@@ -16,14 +15,17 @@ mixin WidgetBuilderMixin on Widget {
     );
   }
 
-  Widget commandBuilder<T>({
-    required Command<T> command,
-    required CommandBuilder<T> builder,
+  Widget vmConsumer<V extends ViewModel>({
+    required ViewModelConsumer<V> consumer,
+    required ViewModel viewModel,
+    Widget? child,
   }) {
     return ListenableBuilder(
-      listenable: command,
+      listenable: viewModel,
+      child: child,
       builder: (BuildContext context, Widget? child) {
-        return builder(context, command);
+        consumer(context, viewModel as V);
+        return child ?? const SizedBox.shrink();
       },
     );
   }
