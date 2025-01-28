@@ -52,4 +52,11 @@ mixin StateViewModelMixin<W extends StatefulWidget> on State<W> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    _previousBuilderState = null;
+    _previousViewModelState = null;
+    super.dispose();
+  }
 }
