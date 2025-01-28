@@ -1,3 +1,8 @@
+## 0.1.2
+
+* Added buildWhen
+* Organized mixins and extensions
+
 ## 0.1.1
 
 * General improvements
